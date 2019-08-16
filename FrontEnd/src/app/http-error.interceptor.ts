@@ -20,8 +20,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   constructor(
     private router: Router, ) { }
 
-  // Catches 3 errors from API/Server.  404 errors (2)... 1)on logout, an ID entered that has not checked in.  2)on Login, enters bad student ID
-  // 400 error... on Teacher search, enters a check-out date before the check-in date/time.
+  // Catches errors from API/Server for custom messaging to user.  
 
   public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request)
@@ -46,30 +45,21 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     const serverErrorMessage = response.error;
 
     switch (status) {
-      // 400 is "Bad Request" from API
+      // 400 is "Bad Request" from API 
       case 400:
 
         swal.fire({
           title: 'There was a problem.',
-          text: 'It may be because... you entered a check-out date/time BEFORE the check-in date/time.  Even if you revise the check-in time, the check-out time must always be after the original check-in.  In this situation, start over on the check-in page.  Please try again. (400)'
+          text: 'It may be because... no assignments were located in the database (400).'
         });
-        break;
-
-         // 401 is "Unathorized" from API
-      case 401:
-
-        swal.fire({
-          title: 'There was a problem.',
-          text: 'It may be because... you entered a staff ID that is NOT a Resource Teacher or EA in munis.  Please try again. (401)'
-        });
-        break;
+        break;  
 
       case 404:
-        // 404 is "Not Found" from API
+        // 404 is "Not Found" from API 
 
         swal.fire({
           title: 'There was a problem.',
-          text: 'It may be because... the student ID entered is not valid, the student has not checked in today, or did NOT check out on a previous day. (404)'
+          text: 'It may be because... there is an issue with the assignment you are updating in the database (404).'
         });
         break;
 
@@ -78,12 +68,12 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
         swal.fire({
           title: 'There was a problem.',
-          text: 'It may be because... an assignment chosen is already active. (409)'
+          text: 'It may be because... an assignment chosen is already active (409).'
         });
         break;
 
       default:
-        // Catching any other errors, 401.  Can occur if enter time over 24 hours
+        // Catching any other errors, 401
         swal.fire({
           title: 'There was a problem.',
           text: 'Please reload the webpage and try again.'

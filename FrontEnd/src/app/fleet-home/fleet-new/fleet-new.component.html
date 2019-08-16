@@ -1,6 +1,6 @@
 <div class="container">
 
-<form (ngSubmit)="onSubmit(newAssignmentForm)" #newAssignmentForm="ngForm">
+  <form (ngSubmit)="onSubmit(newAssignmentForm)" #newAssignmentForm="ngForm">
 
     <div class="col-sm-12 form-group">
       <H3>Create a new vehicle & camera assignment.</H3>
@@ -9,44 +9,41 @@
       <div class="col-sm-12 form-group" id="topDiv">
         <label for="DateCreated">Assignment Date Created </label>
         <p>{{ DateCreated | date: 'medium' }} </p>
-        <input type="hidden" id="create-date" name="DateCreated"
-          [(ngModel)]="DateCreated" class="form-control">
+        <input type="hidden" id="create-date" name="DateCreated" [(ngModel)]="DateCreated" class="form-control">
       </div>
 
-        <div class="col-sm-6">
-            <label>Select a Vehicle</label>
-            <select type="text" name="VehicleId" 
-              [(ngModel)]="VehicleId" class="form-control">
-              <ng-container *ngFor="let veh of vehicleList">
-                <option [ngValue]="veh.id">
-                  {{ veh.name + " ID number " + veh.id }}
-                </option>
-              </ng-container>
-            </select>
-          </div>
-
-          <div class="col-sm-6">
-              <label>Select a Camera</label>
-              <select type="text" name="CameraId"
-                [(ngModel)]="CameraId" class="form-control">
-                <ng-container *ngFor="let cam of cameraList">
-                  <option>
-                    {{ cam.id }}
-                  </option>
-                </ng-container>
-              </select>
-          </div>
-
-          <div>
-            <input type="hidden" name="Deleted" [(ngModel)]="Deleted" class="form-control">
-          </div>
-
+      <div class="col-sm-6">
+        <label>Select a Vehicle</label>
+        <select type="text" name="VehicleId" [(ngModel)]="VehicleId" class="form-control">
+          <ng-container *ngFor="let veh of vehicleList">
+            <option [ngValue]="veh.id">
+              {{ veh.name + " ID number " + veh.id }}
+            </option>
+          </ng-container>
+        </select>
       </div>
 
-      <div class="col-sm-12" id="submitButton">
-          <button type="submit"> Submit</button>
+      <div class="col-sm-6">
+        <label>Select a Camera</label>
+        <select type="text" name="CameraId" [(ngModel)]="CameraId" class="form-control">
+          <ng-container *ngFor="let cam of cameraList">
+            <option>
+              {{ cam.id }}
+            </option>
+          </ng-container>
+        </select>
       </div>
 
-</form>
+      <div>
+        <input type="hidden" name="Deleted" [(ngModel)]="Deleted" class="form-control">
+      </div>
+
+    </div>
+
+    <div class="col-sm-12" id="submitButton">
+      <button type="submit"> Submit</button>
+    </div>
+
+  </form>
 
 </div>

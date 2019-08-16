@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -14,8 +13,6 @@ export class FleetService {
   private accessPointUrlVehicle: string = 'https://localhost:5001/api/vehicle';
 
 
-
-
   constructor(
     private http: HttpClient, private httpClient: HttpClient
   ) 
@@ -23,7 +20,7 @@ export class FleetService {
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
   }
 
-// GET Calls for Camera & Vehicle
+// GET Calls to Camera & Vehicle controllers
   public getCameraList() {
     return this.http.get(this.accessPointUrlCamera, { headers: this.headers });
   }
@@ -33,7 +30,7 @@ export class FleetService {
   }
 
 
-// Calls for Assignments
+// Calls to CameraAssignments Controller
 
 public getAssignmentList() {
   return this.http.get(this.accessPointUrl, { headers: this.headers });
@@ -54,6 +51,10 @@ public addAssignment(payload) {
 
 public updateAssignment(payload) {
   return this.http.put(this.accessPointUrl + '/' + payload.Id, payload, { headers: this.headers });
+}
+
+public updateDelete(payload) {
+  return this.http.put(this.accessPointUrl + '/UpdateForDelete/' + payload.Id, payload, { headers: this.headers });
 }
 
 public deletAssignment(id: number) {

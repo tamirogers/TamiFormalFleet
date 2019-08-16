@@ -3,9 +3,6 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FleetService } from 'src/app/fleet.service';
 import { NgForm } from '@angular/forms';
 
-
-
-
 @Component({
   selector: 'app-fleet-home',
   templateUrl: './fleet-home.component.html',
@@ -18,11 +15,8 @@ export class FleetHomeComponent implements OnInit {
   public openList: boolean = false;
   public enterListToggle: any = 'View All Active Assignments';
 
-
   id: number;
   editMode = false;
-
-
 
   constructor(
     private route: ActivatedRoute,
@@ -30,9 +24,7 @@ export class FleetHomeComponent implements OnInit {
     private fleetService: FleetService
   ) { 
     fleetService.getAssignmentList().subscribe((importAssignmentList: any) => this.assignmentList = importAssignmentList);
-
     fleetService.getVehicleList().subscribe((importVehicleList: any) => this.vehicleList = importVehicleList);
-
   }
 
   ngOnInit() {

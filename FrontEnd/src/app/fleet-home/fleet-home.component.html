@@ -28,13 +28,13 @@
                         <td *ngIf="mat.vehicleId === veh.id && mat.deleted === false"> {{ veh.name }} </td>
                     </span>
                     <td *ngIf="mat.deleted === false">{{ mat.cameraId }} </td>
-                    <td *ngIf="mat.deleted === false"> <a [routerLink]="['/fleet-home/fleet-edit/', mat.id]">EDIT or DELETE</a> </td>
+                    <td *ngIf="mat.deleted === false"> <a [routerLink]="['/fleet-home/fleet-edit/', mat.id]">EDIT or
+                            DELETE</a> </td>
                 </tr>
 
             </tbody>
         </table>
     </div>
-
 
 
 </div>

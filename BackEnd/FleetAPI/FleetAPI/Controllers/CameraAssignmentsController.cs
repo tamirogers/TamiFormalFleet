@@ -52,25 +52,7 @@ namespace FleetAPI.Controllers
 
 
 
-
-        //[HttpPost]
-        //public async Task<IActionResult> AddCameraAssignment([FromBody] CameraAssignment objCameraAssignment)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-        //    _db.CameraAssignments.Add(objCameraAssignment);
-        //    await _db.SaveChangesAsync();
-
-        //    return new JsonResult("Assignment Created Successfully");
-        //}
-
-
-
-
-
-        // First checks if Vehicle exists and is Active, then Camera
+        // First checks if Vehicle is Active, then Camera
         [HttpPost]
         public IActionResult AddCameraAssignment([FromBody] CameraAssignment objCameraAssignment)
         {
@@ -107,17 +89,8 @@ namespace FleetAPI.Controllers
             var searchAssignments = await _db.CameraAssignments
              .Where(a => a.VehicleId == userSearch.searchVehicleId || a.CameraId == userSearch.searchCameraId).ToListAsync();
 
-             //.Where(t => t.ClassTimesStudentId == studentSearch.ClassTimesStudentId).ToListAsync();
-
-
             return Ok(searchAssignments);
         }
-
-
-
-
-
-
 
 
 
@@ -126,9 +99,8 @@ namespace FleetAPI.Controllers
         {
             if (objCameraAssignment == null || id != objCameraAssignment.Id)
             {
-                return new JsonResult("Assignment Was Not Found");
+                return NotFound();
             }
-
 
             var noCar = _db.CameraAssignments
 
@@ -145,6 +117,26 @@ namespace FleetAPI.Controllers
             if (noCamera != null)
             {
                 return Conflict(ModelState);
+            }
+
+
+            else
+            {
+                _db.CameraAssignments.Update(objCameraAssignment);
+                await _db.SaveChangesAsync();
+                return new JsonResult("Assignment Was Updated Successfully");
+            }
+        }
+
+
+
+
+        [HttpPut("UpdateForDelete/{id}")]
+        public async Task<IActionResult> UpdateForDelete([FromRoute] int id, [FromBody] CameraAssignment objCameraAssignment)
+        {
+            if (objCameraAssignment == null || id != objCameraAssignment.Id)
+            {
+                return NotFound();
             }
 
 

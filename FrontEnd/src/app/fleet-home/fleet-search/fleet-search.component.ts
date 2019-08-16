@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FleetService } from 'src/app/fleet.service';
 import { NgForm } from '@angular/forms';
 
-
 @Component({
   selector: 'app-fleet-search',
   templateUrl: './fleet-search.component.html',
@@ -16,14 +15,12 @@ export class FleetSearchComponent implements OnInit {
   public cameraList: Array<any>;
   public recordsFromSearch: Array<any>;
 
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private fleetService: FleetService
-  ) { 
+  ) {
     fleetService.getVehicleList().subscribe((importVehicleList: any) => this.vehicleList = importVehicleList);
-
     fleetService.getCameraList().subscribe((importCameraList: any) => this.cameraList = importCameraList);
   }
 
@@ -41,12 +38,6 @@ export class FleetSearchComponent implements OnInit {
     }
 
     this.fleetService.FromSearch(searchObject).subscribe((importOne: any) => this.recordsFromSearch = importOne);
-
-  
-    console.log('search post ' + searchObject);
-    
-
-   
 
 
   }

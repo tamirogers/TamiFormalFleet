@@ -1,73 +1,67 @@
 <div class="container">
 
-    <form (ngSubmit)="onSubmit(searchForm)" #searchForm="ngForm">
-    
-        <div class="col-sm-12 form-group">        
-    <H3>Search all active assignments by either vehicle or camera</H3>
-            <div class="col-sm-6">
-                <label>Search by Vehicle</label>
-                <select type="text" name="searchVehicleId" 
-                  [(ngModel)]="searchVehicleId" class="form-control">
-                  <ng-container *ngFor="let veh of vehicleList">
-                    <option [ngValue]="veh.id">
-                      {{ veh.name + " ID number " + veh.id }}
-                    </option>
-                  </ng-container>
-                </select>
-              </div>
-    
-              <div class="col-sm-6">
-                  <label>Search by Camera</label>
-                  <select type="text" name="searchCameraId"
-                    [(ngModel)]="searchCameraId" class="form-control">
-                    <ng-container *ngFor="let cam of cameraList">
-                      <option [ngValue]="cam.id">
-                        {{ cam.deviceNo + " ID number " + cam.id }}
-                      </option>
-                    </ng-container>
-                  </select>
-              </div>       
-    
-          </div>
-    
-          <div class="col-sm-12" id="">
-              <button class="" type="submit"> Submit</button>
-          </div>
-    
-    </form>
+  <form (ngSubmit)="onSubmit(searchForm)" #searchForm="ngForm">
 
+    <div class="col-sm-12 form-group">
+      <H3>Search all active assignments by either vehicle or camera</H3>
+      <div class="col-sm-6">
+        <label>Search by Vehicle</label>
+        <select type="text" name="searchVehicleId" [(ngModel)]="searchVehicleId" class="form-control">
+          <ng-container *ngFor="let veh of vehicleList">
+            <option [ngValue]="veh.id">
+              {{ veh.name + " ID number " + veh.id }}
+            </option>
+          </ng-container>
+        </select>
+      </div>
 
+      <div class="col-sm-6">
+        <label>Search by Camera</label>
+        <select type="text" name="searchCameraId" [(ngModel)]="searchCameraId" class="form-control">
+          <ng-container *ngFor="let cam of cameraList">
+            <option [ngValue]="cam.id">
+              {{ cam.deviceNo + " ID number " + cam.id }}
+            </option>
+          </ng-container>
+        </select>
+      </div>
 
-    <div *ngIf="recordsFromSearch">     
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Date Created</th>
-                    <th>Vehicle Assigned to</th>
-                    <th>Camera</th>
-                    <th>Edit and/or Delete Assignment</th>       
-                </tr>
-            </thead>
-
-            <tbody>
-          <tr *ngFor="let ser of recordsFromSearch; let in = index" style='text-align:left;'>
-      <td *ngIf="ser.deleted === false">{{ ser.dateCreated | date: 'medium' }} </td>
-      <span *ngFor="let veh of vehicleList">  <td *ngIf="ser.vehicleId === veh.id && ser.deleted === false"> {{ veh.name }} </td> </span>  
-
-        <td *ngIf="ser.deleted === false">{{ ser.cameraId }} </td>       
-        <td *ngIf="ser.deleted === false"> <a [routerLink]="['/fleet-home/fleet-edit/', ser.id]">EDIT or DELETE</a> </td>                                  
-        </tr>
-              
-            </tbody> 
-        </table>
     </div>
 
+    <div class="col-sm-12" id="">
+      <button class="" type="submit"> Submit</button>
+    </div>
+
+  </form>
 
 
 
+  <div *ngIf="recordsFromSearch">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Date Created</th>
+          <th>Vehicle Assigned to</th>
+          <th>Camera</th>
+          <th>Edit and/or Delete Assignment</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let ser of recordsFromSearch; let in = index" style='text-align:left;'>
+          <td *ngIf="ser.deleted === false">{{ ser.dateCreated | date: 'medium' }} </td>
+          <span *ngFor="let veh of vehicleList">
+            <td *ngIf="ser.vehicleId === veh.id && ser.deleted === false"> {{ veh.name }} </td>
+          </span>
+          <td *ngIf="ser.deleted === false">{{ ser.cameraId }} </td>
+          <td *ngIf="ser.deleted === false"> <a [routerLink]="['/fleet-home/fleet-edit/', ser.id]">EDIT or DELETE</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
 
-
-<div>
-  <router-outlet></router-outlet>
-</div>
+  <div>
+    <router-outlet></router-outlet>
+  </div>

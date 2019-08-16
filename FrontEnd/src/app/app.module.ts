@@ -31,7 +31,6 @@ import { FleetNewComponent } from './fleet-home/fleet-new/fleet-new.component';
   ],
   providers: [
     FleetService,
-    // { provide: HTTP_INTERCEPTORS, useClass: AdalInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
