@@ -1,0 +1,46 @@
+<div class="bg"></div>
+<div class="container" id="mainContainer">
+    <div *ngIf="route.children.length === 0" class="">
+
+        <button class="button" id="leftButton" (click)="toggleList()"> {{ enterListToggle }} </button>
+
+        <a [routerLink]="['./fleet-search']"> <button id="midButton" class="button"> Search Assignments</button></a>
+
+        <a [routerLink]="['./fleet-new']"> <button id="rightButton" class="button"> Add a New Assignment</button></a>
+    </div>
+
+    <div *ngIf="openList && route.children.length === 0">
+        <H3>Active Vehicle & Camera Assignments</H3>
+        <table class="table table-hover" id="searchTable">
+            <thead>
+                <tr>
+                    <th>Date Created</th>
+                    <th>Vehicle Assigned to</th>
+                    <th>Camera</th>
+                    <th>Edit and/or Delete Assignment</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let mat of assignmentList; let in = index" style='text-align:left;'>
+                    <td *ngIf="mat.deleted === false">{{ mat.dateCreated | date: 'medium' }} </td>
+                    <span *ngFor="let veh of vehicleList">
+                        <td *ngIf="mat.vehicleId === veh.id && mat.deleted === false"> {{ veh.name }} </td>
+                    </span>
+                    <td *ngIf="mat.deleted === false">{{ mat.cameraId }} </td>
+                    <td *ngIf="mat.deleted === false"> <a [routerLink]="['/fleet-home/fleet-edit/', mat.id]">EDIT or DELETE</a> </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+
+
+</div>
+
+<div *ngIf="route.children.length === 1" id="homeLink"> <a [routerLink]="['../']"> HOME</a></div>
+
+<div>
+    <router-outlet></router-outlet>
+</div>

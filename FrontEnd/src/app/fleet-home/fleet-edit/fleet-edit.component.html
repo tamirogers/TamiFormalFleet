@@ -1,0 +1,61 @@
+<div class="container" *ngFor="let one of editOneAssignment; let in = index">
+
+    <form (ngSubmit)="onSubmit(editAssignmentForm)" #editAssignmentForm="ngForm">
+    
+        <div class="col-sm-12 form-group">
+    
+          <div class="col-sm-12 form-group">
+            <p>Original Date Created on...{{ one.dateCreated | date: 'medium' }} </p>
+            <label for="DateCreated">Date Assignment Modified </label>
+            {{ DateCreated | date: 'medium' }}
+            <input type="hidden" id="create-date" name="DateCreated"
+              [(ngModel)]="DateCreated" class="form-control">
+          </div>
+    
+            <div class="col-sm-6">
+                <label>Select a Vehicle</label>
+                <select type="text" name="VehicleId" 
+                  [(ngModel)]="one.vehicleId" class="form-control" [(ngModel)]="VehicleId">
+                  <ng-container *ngFor="let veh of vehicleList">
+                    <option [ngValue]="veh.id">
+                      {{ veh.name + " ID number " + veh.id }}
+                    </option>
+                  </ng-container>
+                </select>
+              </div>
+    
+              <div class="col-sm-6">
+                  <label>Select a Camera</label>
+                  <select type="text" name="CameraId"
+                    [(ngModel)]="one.cameraId" class="form-control" [(ngModel)]="CameraId">
+                    <ng-container *ngFor="let cam of cameraList">
+                      <option>
+                        {{ cam.id }}
+                      </option>
+                    </ng-container>
+                  </select>
+              </div>
+    
+              <div>
+                <!-- <input type="bool" name="Deleted" [(ngModel)]="one.deleted" [(ngModel)]="Deleted" class="form-control"> -->
+                <label for="true">Delete this assignment </label>
+                <input type="radio" name="Deleted" [(ngModel)]="one.deleted" [(ngModel)]="Deleted" [value]="true">
+                <!-- <label for="false">Delete this assignment </label> -->
+                <input type="hidden" name="Deleted" [(ngModel)]="one.deleted" [(ngModel)]="Deleted" [value]="false">
+
+              </div>
+              <div>
+                  <input type="text" name="Id" [(ngModel)]="one.id" class="form-control" [(ngModel)]="Id">
+                </div>
+             
+          </div>
+    
+          <div class="col-sm-12" id="">
+              <button class="" type="submit"> Submit</button>
+          </div>
+    
+    </form>
+    
+    
+    
+    </div>
