@@ -9,6 +9,29 @@
         <a [routerLink]="['./fleet-new']"> <button id="rightButton" class="button"> Add a New Assignment</button></a>
     </div>
 
+    <div class="card-footer">
+        <div class="row">
+          <div class="form-check col-md-7">
+            <label>
+              <input class="form-check-input"
+                     type="checkbox"
+                     (change)="checkChanged($event.target.checked)"
+                     [checked]="displayCode">
+              Display Product Code
+            </label>
+          </div>
+          <div class="col-md-4 text-right">
+           <!--  <button class="btn btn-primary" (click)="newProduct()">
+              Add
+            </button> -->
+          </div>
+        </div>
+      </div>
+
+
+
+
+
     <div *ngIf="openList && route.children.length === 0">
         <H3>Active Vehicle & Camera Assignments</H3>
         <table class="table table-hover" id="searchTable">
@@ -37,9 +60,17 @@
     </div>
 
 
+
+
 </div>
 
 <div *ngIf="route.children.length === 1" id="homeLink"> <a [routerLink]="['../']"> HOME</a></div>
+
+<div class="container">
+    <!-- <app-fleet-edit></app-fleet-edit> -->
+</div>
+
+
 
 <div>
     <router-outlet></router-outlet>

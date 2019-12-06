@@ -12,6 +12,11 @@ export class FleetService {
   private accessPointUrlCamera: string = 'https://localhost:5001/api/camera';
   private accessPointUrlVehicle: string = 'https://localhost:5001/api/vehicle';
 
+  // For Azure hosting
+ // https://fleetapi.azurewebsites.net/
+
+  // For Local Hosting
+ // https://localhost:5001/api/camera
 
   constructor(
     private http: HttpClient, private httpClient: HttpClient
@@ -60,6 +65,13 @@ public updateDelete(payload) {
 public deletAssignment(id: number) {
   return this.http.delete(`${this.accessPointUrl}/${id}`, { headers: this.headers });
 }
+
+/* updateData(data: any): void{
+  data = this.getAssignmentList()
+  this.customerData.next(data);
+} */
+
+
 
 
 

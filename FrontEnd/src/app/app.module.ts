@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+// import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { FleetService } from 'src/app/fleet.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -13,6 +13,8 @@ import { AppRoutingModule } from './/app-routing.module';
 import { FleetEditComponent } from './fleet-home/fleet-edit/fleet-edit.component';
 import { FleetSearchComponent } from './fleet-home/fleet-search/fleet-search.component';
 import { FleetNewComponent } from './fleet-home/fleet-new/fleet-new.component';
+/* NgRx Redux store */
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -25,8 +27,9 @@ import { FleetNewComponent } from './fleet-home/fleet-new/fleet-new.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    StoreModule.forRoot({}),
     FormsModule,
-    HttpModule,
+   // HttpModule,
     HttpClientModule
   ],
   providers: [

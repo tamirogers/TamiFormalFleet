@@ -132,7 +132,8 @@ namespace FleetAPI.Controllers
 
 
         [HttpPut("UpdateForDelete/{id}")]
-        public async Task<IActionResult> UpdateForDelete([FromRoute] int id, [FromBody] CameraAssignment objCameraAssignment)
+        // public async Task<IActionResult> UpdateForDelete([FromRoute] int id, [FromBody] CameraAssignment objCameraAssignment)
+        public IActionResult UpdateForDelete([FromRoute] int id, [FromBody] CameraAssignment objCameraAssignment)
         {
             if (objCameraAssignment == null || id != objCameraAssignment.Id)
             {
@@ -143,7 +144,8 @@ namespace FleetAPI.Controllers
             else
             {
                 _db.CameraAssignments.Update(objCameraAssignment);
-                await _db.SaveChangesAsync();
+                //await _db.SaveChangesAsync();
+                _db.SaveChanges();
                 return new JsonResult("Assignment Was Updated Successfully");
             }
         }

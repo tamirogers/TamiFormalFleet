@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Component, OnInit, ViewChild, NgZone, Output, EventEmitter } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FleetService } from 'src/app/fleet.service';
 import { NgForm } from '@angular/forms';
 import swal from 'sweetalert2';
@@ -11,16 +11,21 @@ import swal from 'sweetalert2';
 })
 export class FleetEditComponent implements OnInit {
 
-  @ViewChild('editAssignmentForm') slForm: NgForm;
+  @ViewChild('editAssignmentForm', {static: false}) slForm: NgForm;
+  // testing this
+  // @Output() click = new EventEmitter();
 
   public editOneAssignment: Array<any>;
   public cameraList: Array<any>;
   public vehicleList: Array<any>;
+  data;
+  results;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private fleetService: FleetService
+    private fleetService: FleetService,
+    private ngZone: NgZone
   ) {
 
     fleetService.getCameraList().subscribe((importCameraList: any) => this.cameraList = importCameraList);
@@ -35,6 +40,12 @@ export class FleetEditComponent implements OnInit {
   DateCreated = new Date();
   Deleted = 0;
 
+
+
+
+
+
+
   deActivateAssignment(form: NgForm) {
 
     const value = form.value;
@@ -48,7 +59,13 @@ export class FleetEditComponent implements OnInit {
       Deleted: assigmentUpdate.Deleted
     }
     this.fleetService.updateDelete(updateAssignmentObject).subscribe
-      (data => { });
+      (data => { 
+        this.ngZone.run(() => this.router.navigate(['/fleet-home'])).then();
+      });
+
+      // emit this event
+
+      // this.click.emit();
 
     swal.fire({
       title: 'Success',
@@ -57,6 +74,7 @@ export class FleetEditComponent implements OnInit {
     }).then(function () { });
 
     this.router.navigate(['/fleet-home']);
+
   }
 
 
@@ -87,3 +105,5 @@ export class FleetEditComponent implements OnInit {
 
 
 }
+
+

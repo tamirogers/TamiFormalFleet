@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FleetService } from 'src/app/fleet.service';
 import { NgForm, FormGroup } from '@angular/forms';
 import swal from 'sweetalert2';
@@ -11,15 +11,19 @@ import swal from 'sweetalert2';
 })
 export class FleetNewComponent implements OnInit {
 
-  @ViewChild('newAssignmentForm') slForm: NgForm;
+  @ViewChild('newAssignmentForm', {static: false}) slForm: NgForm;
 
   public vehicleList: Array<any>;
   public cameraList: Array<any>;
 
+  CameraId;
+  VehicleId;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private fleetService: FleetService
+    private fleetService: FleetService,
+    private ngZone: NgZone
   ) {
     fleetService.getVehicleList().subscribe((importVehicleList: any) => this.vehicleList = importVehicleList);
     fleetService.getCameraList().subscribe((importCameraList: any) => this.cameraList = importCameraList);
@@ -31,6 +35,15 @@ export class FleetNewComponent implements OnInit {
   DateCreated = new Date();
 
   Deleted = 0;
+
+ /*  checkOutFormReset() {
+    this.ClassTimesStudentId = " ";
+    this.ClassTimesLogOffDate = new Date();
+  } */
+
+
+
+
 
   onSubmit(form: NgForm) {
 
@@ -46,7 +59,12 @@ export class FleetNewComponent implements OnInit {
     }
 
     this.fleetService.addAssignment(newAssignmentObject).subscribe
-      (data => { });
+      (data => { 
+        this.ngZone.run(() => this.router.navigate(['/fleet-home'])).then();
+      });
+
+
+
 
     swal.fire({
       title: 'Success',
@@ -54,7 +72,6 @@ export class FleetNewComponent implements OnInit {
       timer: 3000
     }).then(function () { });
 
-    this.router.navigate(['/fleet-home']);
 
   }
 

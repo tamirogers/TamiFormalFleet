@@ -42,3 +42,6 @@ H3 {
     border: none;
     vertical-align: text-bottom;
 }
+td {
+    margin: 0%;
+}

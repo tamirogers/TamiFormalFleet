@@ -10,10 +10,13 @@ import { NgForm } from '@angular/forms';
 })
 export class FleetSearchComponent implements OnInit {
 
-  @ViewChild('searchForm') slForm: NgForm;
+  @ViewChild('searchForm', {static: false}) slForm: NgForm;
   public vehicleList: Array<any>;
   public cameraList: Array<any>;
   public recordsFromSearch: Array<any>;
+  searchVehicleId;
+  searchCameraId;
+  
 
   constructor(
     private route: ActivatedRoute,
